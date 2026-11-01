@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Presupuesto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md mt-6">
+        
+        <div class="mb-6 border-b pb-4">
+            <h1 class="text-2xl font-bold text-gray-800">Control de Finanzas Personales</h1>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="col-span-1 bg-white border border-gray-300 p-4 rounded shadow-sm">
+                <h3 class="text-lg font-bold mb-4 text-gray-700">Nueva Transacción</h3>
+                
+                <form id="formulario">
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium mb-1">Fecha</label>
+                        <input type="date" id="fecha" class="w-full border border-gray-300 p-2 rounded" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium mb-1">Usuario</label>
+                        <input type="text" id="operario" placeholder="Nombre" class="w-full border border-gray-300 p-2 rounded" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium mb-1">Descripción</label>
+                        <input type="text" id="descripcion" placeholder="Ej: Compra comida" class="w-full border border-gray-300 p-2 rounded" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium mb-1">Monto</label>
+                        <input type="number" id="monto" class="w-full border border-gray-300 p-2 rounded" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block text-sm font-medium mb-1">Tipo</label>
+                        <select id="tipo" class="w-full border border-gray-300 p-2 rounded" required>
+                            <option value="ingreso">Ingreso</option>
+                            <option value="gasto">Gasto</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-1">Categoría</label>
+                        <select id="categoria" class="w-full border border-gray-300 p-2 rounded" required>
+                            <option value="Sueldo">Sueldo</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Transporte">Transporte</option>
+                            <option value="Ocio">Ocio</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">
+                        Agregar
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-span-1 md:col-span-2">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-green-100 p-4 rounded text-center border border-green-300">
+                        <h4 class="text-sm font-bold text-green-800">Ingresos Totales</h4>
+                        <p id="total-ingresos" class="text-xl font-bold text-green-900 mt-2">$0.00</p>
+                    </div>
+                    <div class="bg-red-100 p-4 rounded text-center border border-red-300">
+                        <h4 class="text-sm font-bold text-red-800">Gastos Totales</h4>
+                        <p id="total-gastos" class="text-xl font-bold text-red-900 mt-2">$0.00</p>
+                    </div>
+                    <div class="bg-blue-100 p-4 rounded text-center border border-blue-300">
+                        <h4 class="text-sm font-bold text-blue-800">Balance Neto</h4>
+                        <p id="balance-neto" class="text-xl font-bold text-blue-900 mt-2">$0.00</p>
+                    </div>
+                </div>
+
+                <div id="contenedor-historial" class="bg-white border border-gray-300 p-4 rounded shadow-sm min-h-[250px]">
+                    
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-bold text-gray-800">Historial de Transacciones</h3>
+                        <button id="btn-limpiar-filtros" class="text-sm text-blue-600 hover:underline">Limpiar Filtros</button>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 bg-gray-50 p-3 rounded border border-gray-200">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Categoría</label>
+                            <select id="filtro-categoria" class="w-full border border-gray-300 p-1.5 rounded text-sm outline-none">
+                                <option value="">Todas</option>
+                                <option value="Sueldo">Sueldo</option>
+                                <option value="Comida">Comida</option>
+                                <option value="Transporte">Transporte</option>
+                                <option value="Ocio">Ocio</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-600 mb-1">Tipo</label>
+                            <select id="filtro-tipo" class="w-full border border-gray-300 p-1.5 rounded text-sm outline-none">
+                                <option value="">Todos</option>
+                                <option value="ingreso">Ingresos</option>
+                                <option value="gasto">Gastos</option>
+                            </select>
+                        </div>
+                    </div>
+                      
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b bg-gray-50 text-gray-600 uppercase text-xs tracking-wider">
+                                    <th class="py-2 px-2">Fecha</th>
+                                    <th class="py-2 px-2">Usuario</th>
+                                    <th class="py-2 px-2">Descripción</th>
+                                    <th class="py-2 px-2">Categoría</th>
+                                    <th class="py-2 px-2 text-right">Monto</th>
+                                    <th class="py-2 px-2 text-center">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lista-transacciones" class="divide-y divide-gray-200">
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> 
+        </div>
+    </div>
+
+<script src="./classes/Transaccion.js"></script>
+<script src="./funciones.js"></script>
+</body>
+</html>
