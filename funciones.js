@@ -82,10 +82,17 @@ function actualizarInterfaz() {
 
 }
 
-window.borrarRegistro = function(id) {
-    Transaccion.eliminarPorId(id); 
-    actualizarInterfaz();     
-};
+historialContenedor.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-eliminar')) {
+        const idAEliminar = Number(e.target.dataset.id); 
+        
+  
+        Transaccion.eliminarPorId(idAEliminar);
+ 
+        actualizarInterfaz();
+    }
+});
+
 
 //Rodriguez Pilar
 //Peralta Agustin N
