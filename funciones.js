@@ -82,7 +82,7 @@ function actualizarInterfaz() {
             <td class="py-2 px-2 text-sm text-gray-500">${t.categoria}</td>
             <td class="py-2 px-2 font-bold text-right ${colorMonto}">${signo}$${Number(t.monto).toFixed(2)}</td>
             <td class="py-2 px-2 text-center">
-                <button onclick="borrarRegistro(${t.id})" class="text-red-500 hover:text-red-700 font-bold text-xs p-1">❌</button>
+                <button data-id="${t.id}" class="btn-eliminar text-xs text-gray-400 hover:text-red-600 transition-colors">Eliminar</button>
             </td>
         `;
         listaTransacciones.appendChild(fila);
