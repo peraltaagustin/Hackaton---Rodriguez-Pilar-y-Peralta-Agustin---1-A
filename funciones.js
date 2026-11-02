@@ -18,13 +18,6 @@ btnLimpiarFiltros.addEventListener('click', () => {
     actualizarInterfaz();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const datosGuardados = localStorage.getItem('historialFinanzas');
-    if (datosGuardados !== null) {
-        Transaccion.historial = JSON.parse(datosGuardados);
-        actualizarInterfaz();
-    }
-});
 
 formulario.addEventListener('submit', function(evento) {
     evento.preventDefault(); 
@@ -61,7 +54,6 @@ function actualizarInterfaz() {
     totalGastos.innerText = `$${sumaGastos.toFixed(2)}`;
     balanceNeto.innerText = `$${(sumaIngresos - sumaGastos).toFixed(2)}`;
 
-    // 2. Filtramos la lista evaluando ÚNICAMENTE categoría y tipo
     const transaccionesFiltradas = Transaccion.historial.filter(t => {
         const coincideCategoria = filtroCategoria.value === '' || t.categoria === filtroCategoria.value;
         const coincideTipo = filtroTipo.value === '' || t.tipo === filtroTipo.value;
