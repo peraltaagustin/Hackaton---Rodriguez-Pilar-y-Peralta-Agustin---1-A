@@ -82,15 +82,14 @@ function actualizarInterfaz() {
 
 }
 
-historialContenedor.addEventListener('click', (e) => {
+listaTransacciones.addEventListener('click', (e) => {
     if (e.target.classList.contains('btn-eliminar')) {
         const idAEliminar = Number(e.target.dataset.id); 
         
-  
         Transaccion.eliminarPorId(idAEliminar);
- 
         actualizarInterfaz();
     }
+
 });
 
 
