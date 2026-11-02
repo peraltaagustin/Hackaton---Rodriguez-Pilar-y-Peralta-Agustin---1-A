@@ -80,7 +80,6 @@ function actualizarInterfaz() {
         listaTransacciones.appendChild(fila);
     });
 
-    localStorage.setItem('historialFinanzas', JSON.stringify(Transaccion.historial));
 }
 
 window.borrarRegistro = function(id) {
